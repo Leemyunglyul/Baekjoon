@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <cmath>
+#include <queue>
+#include <stack>
+
+using namespace std;
+
+class String {
+private:
+	char* str;
+	int len;
+	static int num;
+public:
+	String(const char* s) {
+		len = strlen(s);
+		str = new char[len + 1];
+		strcpy(str, s);
+		num++;
+		cout << num << str << " 생성생성\n";
+	}
+	String(const String& st) {
+		len = st.len;
+		str = new char[len + 1];
+		strcpy(str, st.str);
+		num++;
+		cout << num << str <<"복사 복사 생성생성\n" ;
+	}
+	String() {
+		len = 3;
+		str = new char[len + 1];
+		strcpy(str, "c++");
+		num++;
+		cout << num << str <<" 디폴트 생성생성\n";
+	}
+	String& operator=(const String& st) {
+		if (this == &st)
+			return *this;
+		delete[] str;
+		len = st.len;
+		str = new char[len + 1];
+		strcpy(str, st.str);
+		return *this;
+	}
+	~String() {
+		num--;
+		cout << this->num <<"left 삭제\n";
+		delete[] str;
+	}
+	friend ostream& operator<<(ostream& os, const String& st);
+};
+
+std::ostream& operator<<(ostream& os, const String& st) {
+	os << st.str;
+	return os;
+}
+int String::num = 0;
+
+int main() {
+	String head("BAAMM~~~");
+	String sail = head;
+	String *musk = new String();
+	delete musk;
+	cout << "THE enD\n";
+	return 0;
+}
