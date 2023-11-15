@@ -60,6 +60,6 @@ int main() {
 			sum += i * j;
 		}
 	}
-	sum += num2++;
+	sum += num2;
 	cout << sum;
 }
