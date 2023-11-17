@@ -8,47 +8,38 @@
 #include <algorithm>
 
 using namespace std;
-typedef struct box{
-	int len;
+typedef struct box {
+	int end;
 	int start;
 	int num;
-};
-int vil[10100] = {0};
-box b[10100];
+}Box;
+int vil[4000] = { 0 };
+box b[10200];
 
 bool cmp(const box& b1, const box& b2) {
-	if (b1.len < b2.len) {
-		return true;
-	}
-	else if (b1.len == b2.len) {
-		if (b1.start < b2.start) return true;
-		else if (b1.start == b2.start) {
-			if (b1.num <= b2.num) return true;
-		}
-		return false;
-	}
-	return false;
+	if (b1.end == b2.end) return b1.start < b2.start;
+	else return b1.end < b2.end;
 }
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	int n, cap, bn, x, y, z, i, sum, j, least;
-	cin >> n >> cap>>bn;
+	cin >> n >> cap >> bn;
 	for (i = 0; i < bn; i++) {
 		cin >> x >> y >> z;
-		b[i].len = y - x;
+		b[i].end = y;
 		b[i].start = x;
 		b[i].num = z;
 	}
 	sort(b, b + bn, cmp);
-	for (i = 0, sum=0; i < bn; i++) {
-		for (j = b[i].start, least = 100000; j < b[i].start + b[i].len; j++) {
-			least = min(least, cap - vil[j]);
+	for (i = 0, sum = 0; i < bn; i++) {
+		for (j = b[i].start, least=0; j < b[i].end; j++) {
+			least = max(least, vil[j]);
 		}
-		least = min(least, b[i].num);
+		least = min(b[i].num, cap - least);
 		//cout << b[i].start <<" "<<b[i].start+b[i].len<<" "<<b[i].num << endl;
 		if (least == 0) continue;
-		for (j = b[i].start, sum+=least; j < b[i].start + b[i].len; j++) {
+		for (j = b[i].start, sum += least; j < b[i].end; j++) {
 			vil[j] += least;
 		}
 	}
