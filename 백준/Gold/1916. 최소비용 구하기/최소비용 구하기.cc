@@ -1,60 +1,49 @@
-#include <stdio.h>
-#include <vector>
-#include <queue>
-#define INF 987654321
+#include<iostream>
+#include<math.h>
+#include<string>
+#include<queue>
+#include<vector>
+#include<algorithm>
+
 using namespace std;
 
-int node[1005][1005];
-priority_queue<pair<int,int>,vector<pair<int,int> >,greater<pair<int,int> > >pq;
-int value[1005];
+long long int node[1010][1010] = { 0 };
+long long int d[1010] = { 0 };
+priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int>>>pq;
 
-int main(){
-	int n,m;
-	int u,v,w;
-	int start,end;
-	
-	scanf("%d %d",&n,&m);
-	
-	for(int i=1;i<=n;i++)
-		for(int j=1;j<=n;j++)
-			node[i][j] = INF;
-	
-	for(int i=1;i<=n;i++){
+int main() {
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	long long int city, bus, i, j, start, end, x, dis;
+	x = 21000000000;
+	cin >> city >> bus;
+	for (i = 1; i <= city; i++) {
+		for (j = 1; j <= city; j++) {
+			node[i][j] = x;
+		}
+		d[i] = x;
 		node[i][i] = 0;
-		value[i] = INF;
 	}
-	
-	for(int i=0;i<m;i++){
-		scanf("%d %d %d",&u,&v,&w);
-		if(node[u][v]>w)
-		node[u][v] = w;
+	for (i = 0; i < bus; i++) {
+		cin >> start >> end >> dis;
+		if (node[start][end] > dis) node[start][end] = dis;
 	}
-	
-	scanf("%d %d",&start,&end);
-	
-	value[start] = 0;
-	
-	pq.push(make_pair(0,start));
-	
-	while(!pq.empty()){
-		int x = pq.top().first;
-		int U = pq.top().second;
+	cin >> start >> end;
+	pq.push({0, start });
+	d[start] = 0;
+	while (!pq.empty()) {
+		long long int cost = pq.top().first;
+		long long int cur = pq.top().second;
 		pq.pop();
-		
-		for(int i=1;i<=n;i++){			
-			int V = i;
-			int W = node[U][i];
-			
-			if(W==INF) continue;
-			
-			if(x+W<value[V]){
-				value[V] = x+W;
-				pq.push(make_pair(x+W,V));
+
+		for (i = 1; i <=city; i++) {
+			long long int next = i;
+			long long int ccost = node[cur][next];
+
+			if (d[next] > cost + ccost) {
+				d[next] = cost + ccost;
+				pq.push({ d[next],next });
 			}
 		}
 	}
-	
-	printf("%d",value[end]);
-	
-	return 0;
+	cout << d[end];
 }
