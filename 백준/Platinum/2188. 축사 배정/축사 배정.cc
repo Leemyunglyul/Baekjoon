@@ -1,42 +1,46 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int MAX = 205;
+#include<iostream>
+#include<math.h>
+#include<vector>
 
-int cow[MAX], shed[MAX];
-vector<int> adj[MAX];
-bool visited[MAX];
+using namespace std;
+
+
+int cow[210], shed[210];
+vector<int> adj[210];
+bool visited[210];
 
 bool dfs(int from) {
-    visited[from] = true;
-    for(int i=0; i<adj[from].size(); i++) {
-        int to = adj[from][i];
-        if(shed[to] == -1 || (!visited[shed[to]] && dfs(shed[to]))) {
-            cow[from] = to, shed[to] = from;
-            return true;
-        }
-    }
-    return false;
+	visited[from] = true;
+	for (int i = 0; i < adj[from].size(); i++) {
+		int to = adj[from][i];
+		if (shed[to] == -1 || (!visited[shed[to]] && dfs(shed[to]))) {
+			cow[from] = to;
+			shed[to] = from;
+			return true;
+		}
+	}
+	return false;
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
-    int N, M; cin >> N >> M;
-    for(int from=1; from<=N; from++) {
-        int S; cin >> S;
-        while(S--) {
-            int to; cin >> to;
-            adj[from].push_back(to);
-        }
-    }
-
-    int match = 0;
-    fill(&cow[1], &cow[N+1], -1), fill(&shed[1], &shed[M+1], -1);
-    for(int i=1; i<=N; i++)
-        if(cow[i] == -1) {
-            fill(&visited[1], &visited[N+1], false);
-            if(dfs(i)) match++;
-        }
-    cout << match;
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	int n, m, from, to, num, i, x;
+	cin >> n >> m;
+	for (from = 1; from <= n; from++) {
+		cin >> num;
+		for (i = 0; i < num; i++) {
+			cin >> x;
+			adj[from].push_back(x);
+		}
+	}
+	int match = 0;
+	fill(&cow[1], &cow[n + 1], -1);
+	fill(&shed[1], &shed[m + 1], -1);
+	for (i = 1; i <= n; i++) {
+		if (cow[i] == -1) {
+			fill(&visited[1], &visited[n + 1], false);
+			if (dfs(i)) match++;
+		}
+	}
+    cout<<match;
 }
