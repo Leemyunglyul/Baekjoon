@@ -1,15 +1,11 @@
 #include <iostream>
 #include<cmath>
-#include<map>
-#include<queue>
-#include<vector>
 
 using namespace std;
 
 int parent[100100];
 int lim[100100], n;
 int alc[100100] = { 0 };
-
 
 int find(int x) {
     if (lim[x]>alc[x] || x==n ) return x;
@@ -49,11 +45,5 @@ int main() {
             cin >> x;
             cout << alc[x] << "\n";
         }
-        //for (j = 1; j <= n; j++) {
-           // cout << j << "//" << parent[j] << endl;
-        //}
-        
     }
-    
-    
 }
