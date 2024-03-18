@@ -77,19 +77,6 @@ bool bfs() {
     return true;
 }
 
-void print() {
-    int i, j;
-    cout << Time << endl;
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
-            cout << w[i][j]<<" ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
-
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     cin >> n;
@@ -103,9 +90,6 @@ int main() {
             }
         }
     }
-    while (bfs()) {
-      //  cout << Time<<"//"<<shark.first << endl;
-       // print();
-    }
+    while (bfs());
     cout << Time;
 }
