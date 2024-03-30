@@ -38,7 +38,7 @@ int main() {
                 sum = max(sum, double(dp[k][x] + dp[k][y] + cost[i]) / 2);
             }
             else {
-                sum = max(sum, double(min(dp[k][x], dp[k][y]) + cost[i]));
+                sum = max(sum, double(max(dp[k][x], dp[k][y])));
             }
         }
         anw = min(sum, anw);
