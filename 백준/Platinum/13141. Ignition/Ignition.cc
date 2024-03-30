@@ -34,12 +34,7 @@ int main() {
         for (i = 1, sum=0; i <= m; i++) {
             x = edge[i].first;
             y = edge[i].second;
-            if (abs(dp[k][x]-dp[k][y])<cost[i]) {
-                sum = max(sum, double(dp[k][x] + dp[k][y] + cost[i]) / 2);
-            }
-            else {
-                sum = max(sum, double(max(dp[k][x], dp[k][y])));
-            }
+            sum = max(sum, double(dp[k][x] + dp[k][y] + cost[i]) / 2);
         }
         anw = min(sum, anw);
     }
