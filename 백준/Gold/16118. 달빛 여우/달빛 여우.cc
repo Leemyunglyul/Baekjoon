@@ -31,6 +31,8 @@ int main() {
         long long cur = pq.top().second;
         long long cost = -pq.top().first;
         pq.pop();
+        
+        if(fox[cur]!=cost) continue;
 
         for (i = 0; i < edge[cur].size(); i++) {
             long long nextt = edge[cur][i].first;
