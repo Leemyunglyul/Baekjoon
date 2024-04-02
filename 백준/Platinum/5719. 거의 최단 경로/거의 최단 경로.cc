@@ -10,7 +10,7 @@ vector<pair<int, int>> edge[510];//edge
 int path[510][510];
 int dp[510];//장소 거리
 int pre[510];//이전 노드
-priority_queue<pair<int, int>> pq;//우선순위 큐
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;//우선순위 큐
 int n, m, s, d;//장소, 길, 시작, 끝
 vector<int> rev[510];
 
@@ -54,7 +54,7 @@ int main() {
             int cost = pq.top().first;
             int cur = pq.top().second;
             pq.pop();
-
+            if(dp[cur]!=cost) continue;
             for (i = 0; i < edge[cur].size(); i++) {
                 int next = edge[cur][i].first;
                 int ccost = edge[cur][i].second;
@@ -82,7 +82,7 @@ int main() {
             int cost = pq.top().first;
             int cur = pq.top().second;
             pq.pop();
-
+             if(dp[cur]!=cost) continue;
             for (i = 0; i < edge[cur].size(); i++) {
                 int next = edge[cur][i].first;
                 int ccost = edge[cur][i].second;
