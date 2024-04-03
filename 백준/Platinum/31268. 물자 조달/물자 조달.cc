@@ -37,7 +37,9 @@ int main() {
     }
     for (k = 1; k <= n; k++) {
         for (i = 1; i <= n; i++) {
+            if (i == k) continue;
             for (j = 1; j <= n; j++) {
+                if (j == k) continue;
                 dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j] + stop[k]);
             }
         }
@@ -49,7 +51,9 @@ int main() {
         if (x == 1) {
             stop[y] -= z;
             for (k = 1; k <= n; k++) {
+                if (k == y) continue;
                 for (j = 1; j <= n; j++) {
+                    if (j == y) continue;
                     dp[k][j] = min(dp[k][j], dp[k][y] + dp[y][j] + stop[y]);
                 }
             }
