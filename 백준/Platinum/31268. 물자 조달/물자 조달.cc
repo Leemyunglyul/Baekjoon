@@ -50,6 +50,7 @@ int main() {
         if (x == 1) {
             stop[y] -= z;
             for (k = 1; k <= n; k++) {
+                if (dp[k][y] == big) continue;
                 for (j = 1; j <= n; j++) {
                     if (dp[k][j] > dp[k][y] + dp[y][j] + stop[y]) {
                         dp[k][j] = dp[k][y] + dp[y][j] + stop[y];
