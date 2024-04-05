@@ -7,10 +7,10 @@
 using namespace std;
 
 vector<pair<int, int>> edge[1010];
+vector<pair<int, int>> edge2[1010];
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq;
 int dp[1010];
 int dp2[1010];
-int temp[1010];
 int big = 98764321;
 
 int main() {
@@ -20,6 +20,7 @@ int main() {
 	for (i = 0; i < m; i++) {
 		cin >> s >> d >> w;
 		edge[s].push_back({ d, w });
+		edge2[d].push_back({ s, w });
 	}
 	//일단 다시 돌아오는 것.
 	fill_n(&dp[0], 1010, big);
@@ -39,29 +40,22 @@ int main() {
 			}
 		}
 	}
-	for (i = 1; i <= n; i++) {
-		if (xx == i) {
-			dp2[xx] = 0;
-			continue;
-		}
-		fill_n(&temp[0], 1010, big);
-		temp[i] = 0;
-		pq.push({ temp[i], i });
-		while (!pq.empty()) {
-			cur = pq.top().second;
-			cost = pq.top().first;
-			pq.pop();
-			if (temp[cur] != cost) continue;
-			for (j = 0; j < edge[cur].size(); j++) {
-				nextt = edge[cur][j].first;
-				costt = edge[cur][j].second;
-				if (temp[nextt] > cost + costt) {
-					temp[nextt] = cost + costt;
-					pq.push({ temp[nextt], nextt });
-				}
+	fill_n(&dp2[0], 1010, big);
+	dp2[xx] = 0;
+	pq.push({ dp2[xx], xx });
+	while (!pq.empty()) {
+		cur = pq.top().second;
+		cost = pq.top().first;
+		pq.pop();
+		if (dp2[cur] != cost) continue;
+		for (j = 0; j < edge2[cur].size(); j++) {
+			nextt = edge2[cur][j].first;
+			costt = edge2[cur][j].second;
+			if (dp2[nextt] > cost + costt) {
+				dp2[nextt] = cost + costt;
+				pq.push({ dp2[nextt], nextt });
 			}
 		}
-		dp2[i] = temp[xx];
 	}
 	for (i = 1, big=0; i <= n; i++) {
 		big = max(big, dp2[i] + dp[i]);
