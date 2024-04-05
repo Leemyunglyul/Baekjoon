@@ -4,7 +4,6 @@
 #include <vector>
 #include <tuple>
 #include <stack>
-
 using namespace std;
 
 long long big = 987654321987654321;
@@ -44,21 +43,30 @@ int main() {
             }
         }
     }
+    int pre = -1;
     for (i = q - 1; i >= 0; i--) {
         x = get<0>(query[i]);
         y = get<1>(query[i]);
         z = get<2>(query[i]);
         if (x == 1) {
-            stop[y] -= z;
-            for (k = 1; k <= n; k++) {
-                if (k == y) continue;
-                for (j = 1; j <= n; j++) {
-                    if (j == y) continue;
-                    dp[k][j] = min(dp[k][j], dp[k][y] + dp[y][j] + stop[y]);
+            if (pre == -1);
+            else {
+                for (k = 1; k <= n; k++) {
+                    if (k == pre) continue;
+                    for (j = 1; j <= n; j++) {
+                        if (j == pre) continue;
+                        dp[k][j] = min(dp[k][j], dp[k][pre] + dp[pre][j] +stop[pre]);
+                    }
                 }
             }
+            stop[y] -= z;
+            pre= y;
         }
         else {
+            if (pre== -1);
+            else {
+                dp[y][z] = min(dp[y][z], dp[y][pre] + dp[pre][z] + stop[pre]);
+            }
             if (dp[y][z] == big) anw.push(-1);
             else anw.push(dp[y][z]);
         }
