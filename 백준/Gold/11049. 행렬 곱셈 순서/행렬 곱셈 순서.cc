@@ -26,7 +26,7 @@ int main() {
         dp[i][i + 1] = mat[i][0] * mat[i][1] * mat[i + 1][1];
         dp[i][i] = 0;
     }
-    for (i = 1; i <= n-1; i++) {
+    for (i = 2; i <= n-1; i++) {
         for (s = 1; s <= n; s++) {//start
             e = s + i;
             if (e > n) break;
