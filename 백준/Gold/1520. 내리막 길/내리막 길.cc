@@ -1,11 +1,4 @@
 #include <iostream>
-#include <cmath>
-#include <queue>
-#include <vector>
-#include <algorithm>
-#include <tuple>
-#include <string>
-#include <map>
 
 using namespace std;
 
@@ -13,7 +6,7 @@ int n, m;
 int arr[510][510];
 int visited[510][510];
 bool cant[510][510];
-long long dp[510][510] = { 0 };
+int dp[510][510] = { 0 };
 int rm[4] = { -1, 0, 1, 0 };
 int cm[4] = { 0, 1, 0, -1 };
 
@@ -33,7 +26,6 @@ void dfs_(int r, int c) {
 void dfs(int r, int c) {
     int i;
     visited[r][c] = 0;
-   //cout << r << " " << c << endl;
     for (i = 0; i <= 3; i++) {
         int rr = r + rm[i];
         int cc = c + cm[i];
@@ -45,16 +37,6 @@ void dfs(int r, int c) {
         if (visited[rr][cc]==1) {
             dfs(rr, cc);
         }
-    }
-}
-
-void print() {
-    int i, j;
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= m; j++) {
-            cout <<dp[i][j] << " ";
-        }
-        cout << endl;
     }
 }
 
@@ -83,8 +65,6 @@ int main() {
     }
     dp[1][1] = 1;
     dfs(1, 1);
-    //cout << endl;
-   // print();
     cout << dp[n][m];
 
     return 0;
