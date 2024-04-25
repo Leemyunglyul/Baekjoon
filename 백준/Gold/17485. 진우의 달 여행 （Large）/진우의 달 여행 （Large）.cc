@@ -1,12 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <queue>
-#include <vector>
-#include <algorithm>
-#include <tuple>
-#include <string>
-#include <map>
-#include <set>
 
 using namespace std;
 
@@ -39,7 +32,6 @@ int main() {
                 for (l = 0; l <= 2; l++) {
                     if (k == l) continue;
                     dp[i][j][k] = min(dp[i][j][k], dp[i-1][idx][l]+arr[i][j]);
-                    //cout << dp[i][j][k] << endl;
                 }
             }
         }
