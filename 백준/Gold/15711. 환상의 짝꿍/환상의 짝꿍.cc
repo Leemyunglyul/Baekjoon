@@ -1,12 +1,5 @@
 #include <iostream>
-#include <cmath>
-#include <queue>
 #include <vector>
-#include <algorithm>
-#include <tuple>
-#include <string>
-#include <map>
-#include <set>
 
 using namespace std;
 
