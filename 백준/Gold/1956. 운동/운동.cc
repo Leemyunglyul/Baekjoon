@@ -6,14 +6,14 @@
 
 using namespace std;
 
-long long arr[410][410];
-long long v, e;
+int arr[410][410];
+int v, e;
 
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     cin >> v >> e;
-    long long i, x, y, d, j, k;
-    long long big = 987654321;
+    int i, x, y, d, j, k;
+    int big = 987654321;
     fill_n(&arr[0][0], 410 * 410, big);
     for (i = 1; i <= e; i++) {
         cin >> x >> y >> d;
