@@ -17,7 +17,7 @@ int n, m, q;
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     cin >> n >> m >> q;
-    long long i, j, x, y, w, k, z, pre;
+    long long i, j, x, y, w, k, z;
     for (i = 1; i <= n; i++) {
         cin >> stop[i];
     }
@@ -43,41 +43,27 @@ int main() {
             }
         }
     }
-    for (k = 1; k <= n; k++) {
-        for (i = 1; i <= n; i++) {
-            for (j = 1; j <= n; j++) {
-                if (dp[i][j] > dp[i][k] + dp[k][j] + stop[k]) {
-                    dp[i][j] = dp[i][k] + dp[k][j] + stop[k];
-                }
-            }
-        }
-    }
-    for (i = q - 1, pre=-1; i >= 0; i--) {
+    for (i = q-1; i >=0; i--) {
         x = get<0>(query[i]);
         y = get<1>(query[i]);
-        z = get<2>(query[i]);
+        z= get<2>(query[i]);
         if (x == 1) {
-            if (pre == -1);
-            else {
-                for (k = 1; k <= n; k++) {
-                    for (j = 1; j <= n; j++) {
-                        if (dp[k][j] > dp[k][pre] + dp[pre][j] + stop[pre]) {
-                            dp[k][j] = dp[k][pre] + dp[pre][j] + stop[pre];
-                        }
+            stop[y] -= z;
+            for (k = 1; k <= n; k++) {
+                for (j = 1; j <= n; j++) {
+                    if (dp[k][j] > dp[k][y] + dp[y][j] + stop[y]) {
+                        dp[k][j] = dp[k][y] + dp[y][j] + stop[y];
                     }
                 }
             }
-            pre = y;
-            stop[y] -= z;
         }
         else {
-            if(pre!=-1) dp[y][z] = min(dp[y][pre] + dp[pre][z] + stop[pre], dp[y][z]);
             if (dp[y][z] == big) anw.push(-1);
             else anw.push(dp[y][z]);
         }
     }
     while (!anw.empty()) {
-        cout << anw.top() << "\n";
+        cout << anw.top()<<"\n";
         anw.pop();
     }
 }
