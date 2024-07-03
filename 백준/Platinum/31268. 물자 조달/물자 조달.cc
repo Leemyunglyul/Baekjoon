@@ -43,6 +43,15 @@ int main() {
             }
         }
     }
+    for (k = 1; k <= n; k++) {
+        for (i = 1; i <= n; i++) {
+            for (j = 1; j <= n; j++) {
+                if (dp[i][j] > dp[i][k] + dp[k][j] + stop[k]) {
+                    dp[i][j] = dp[i][k] + dp[k][j] + stop[k];
+                }
+            }
+        }
+    }
     for (i = q - 1, pre=-1; i >= 0; i--) {
         x = get<0>(query[i]);
         y = get<1>(query[i]);
