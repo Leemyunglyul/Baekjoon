@@ -25,7 +25,9 @@ int main() {
             while (s1 < s2) {
                 sum2 = arr[s1] + arr[s2];
                 anw = min(abs(sum1-sum2), anw);
-                if (sum1 == sum2) break;
+                if (sum1 == sum2){
+                    cout<<"0";return 0;
+                }
                 else if (sum1 > sum2) {
                     s1++;
                 }
