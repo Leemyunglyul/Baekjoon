@@ -1,76 +1,80 @@
 #include <iostream>
-#include<cmath>
+#include <cmath>
+#include <queue>
 #include <vector>
 #include <tuple>
+#include <stack>
+#include <algorithm>
 #include <map>
-#include<algorithm>
-#include<queue>
 
 using namespace std;
 
-int v, e;
 vector<int> edge[10010];
-vector<int> rev[10010];
-vector<int> comp[10010];
-vector<int> visit;
+vector<int> back[10010];
+vector<int> result[10010];
+stack<int> st;
 bool visited[10010];
-vector<int> temp;
+vector<pair<int, int>> pq;
 
-priority_queue<pair<int, int>> q;
-
-void dfs(int now) {
-    visited[now] = true;
+void dfs(int x) {
     int i;
-    sort(edge[now].begin(), edge[now].end());
-    for (i = 0; i < edge[now].size(); i++) {
-        if (visited[edge[now][i]]) continue;
-        dfs(edge[now][i]);
+    visited[x] = true;
+    for (i = 0; i < edge[x].size(); i++) {
+        if (!visited[edge[x][i]]) {
+            dfs(edge[x][i]);
+        }
     }
-    visit.push_back(now);
+    st.push(x);
 }
 
-void rev_dfs(int now, int order) {
-    comp[order].push_back(now);
-    visited[now] = true;
+void dfs_(int x, int sum) {
     int i;
-    sort(rev[now].begin(), rev[now].end());
-    for (i = 0; i < rev[now].size(); i++) {
-        if (visited[rev[now][i]])continue;
-        rev_dfs(rev[now][i], order);
+    visited[x] = true;
+    result[sum].push_back(x);
+    for (i = 0; i < back[x].size(); i++) {
+        if (!visited[back[x][i]]) {
+            dfs_(back[x][i], sum);
+        }
     }
 }
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    cin >> v >> e;
-    int i, j, x, y, order;
+    ios_base::sync_with_stdio(false);cin.tie(NULL); cout.tie(NULL);
+
+    int n, m, i, j, x, y;
+    cin >> n >> m;
     fill_n(&visited[0], 10010, false);
-    for (i = 1; i <= e; i++) {
+    for (i = 0; i < m; i++) {
         cin >> x >> y;
         edge[x].push_back(y);
-        rev[y].push_back(x);
+        back[y].push_back(x);
     }
-    for (i = 1; i <=v; i++) {
+    for (i = 1; i <= n; i++) {
+        sort(edge[i].begin(), edge[i].end());
+        sort(back[i].begin(), back[i].end());
+    }
+    for (i = 1; i <= n; i++) {
         if (!visited[i]) {
             dfs(i);
         }
     }
     fill_n(&visited[0], 10010, false);
-    for (i = v-1, order=0; i >=0; i--) {
-        if (!visited[visit[i]]) {
-            rev_dfs(visit[i], order++);
-        }
+    int sum = 0;
+    while (!st.empty()) {
+        x = st.top();
+        st.pop();
+        if (visited[x]) continue;
+        dfs_(x, sum++);
     }
-    cout << order << endl;
-    for (i = 0; i < order; i++) {
-        sort(comp[i].begin(), comp[i].end());
-        q.push({ -comp[i][0], i });
+    for (i = 0; i < sum; i++) {
+        sort(result[i].begin(), result[i].end());
+        pq.push_back({result[i][0], i});
     }
-    while(!q.empty()) {
-        i = q.top().second;
-        q.pop();
-        for (j = 0; j < comp[i].size(); j++) {
-            cout << comp[i][j] << " ";
+    sort(pq.begin(), pq.end());
+    cout << sum << "\n";
+    for (i = 0; i < sum; i++) {
+        for (j = 0; j < result[pq[i].second].size(); j++) {
+            cout << result[pq[i].second][j] << " ";
         }
         cout << "-1\n";
     }
