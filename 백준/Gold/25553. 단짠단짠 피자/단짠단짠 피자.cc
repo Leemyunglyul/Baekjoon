@@ -1,12 +1,5 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <cmath>
 #include <cstdio>
-#include <set>
-#include <queue>
-#include <tuple>
 
 using namespace std;
 
@@ -38,7 +31,6 @@ int main(){
     }
     for(i=2;i<=n;i++){
         idx=find(i);
-       // cout<<i<<"->"<<idx<<endl;
         sum[i]=sum[i-1]-arr[i-1]+arr[idx];
 
         oe[i][0]=oe[i-1][0];//홀
