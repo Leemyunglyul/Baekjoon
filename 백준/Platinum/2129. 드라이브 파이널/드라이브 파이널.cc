@@ -1,18 +1,14 @@
 #include <iostream>
 #include <cmath>
-#include <queue>
 #include <vector>
 #include <tuple>
-#include <stack>
 #include <set>
 #include <algorithm>
-#include <string>
-#include <map>
 
 using namespace std;
 
 int dp[110][2];
-int list[110];//도착, 피로, 비용
+int list[110];
 bool reach[110][110];
 int big=987654321;
 vector<tuple<int, int, int>> edge[110];
@@ -27,9 +23,6 @@ bool check(int n, int s, int e){
             b=get<2>(edge[j][k]);
             if(dp[x][0]>=big) continue;
             if(dp[x][0]+a<dp[y][0] || (dp[x][0]+a==dp[y][0] && dp[x][1]+b<dp[y][1])){
-                dp[y][0]=dp[x][0]+a;
-                dp[y][1]=dp[x][1]+b;
-               // cout<<x<<"-"<<y<<"//////\n";
                 if(reach[s][y] && reach[y][e]) return false;
             }
         }
@@ -84,19 +77,15 @@ int main() {
             y=get<0>(edge[j][k]);
             a=get<1>(edge[j][k]);
             b=get<2>(edge[j][k]);
-            //cout<<x<<"->"<<y<<endl;
             reach[x][y]=true;
         }
             
     }
-    bool cc=false&&true;
-   // cout<<cc<<"------\n ";
     for(k=0;k<n;k++){
         for(j=0;j<n;j++){
             for(i=0;i<n;i++){
                 reach[i][j]|=reach[i][k]&&reach[k][j];
             }
-            //cout<<i<<"~"<<j<<"=="<<reach[i][j]<<endl;
         }
     }
     if(dp[e][0]>=big){
