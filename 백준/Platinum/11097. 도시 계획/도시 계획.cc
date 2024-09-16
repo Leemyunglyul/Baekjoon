@@ -1,18 +1,11 @@
 #include <iostream>
-#include <cmath>
-#include <queue>
 #include <vector>
-#include <tuple>
-#include <stack>
 #include <set>
 #include <algorithm>
-#include <string>
-#include <map>
 
 using namespace std;
 
 int arr[310][310];
-//bool link[310][310];
 int parent[310];
 vector<int> strong[310];
 set<pair<int, int>> edge;
@@ -37,7 +30,6 @@ int main() {
     while(testn--){
         cin>>n;
         edge.clear();
-        //fill_n(&link[0][0], 310*310, false);
         for(i=1;i<=n;i++){
             parent[i]=i;
             for(j=1;j<=n;j++){
@@ -57,7 +49,6 @@ int main() {
             strong[find(i)].push_back(i);
         }
         for(i=1;i<=n;i++){
-            //link[i][i]=true;
             if(strong[i].size()>=2){
                 for(j=0;j<strong[i].size();j++){
                     if(j==strong[i].size()-1){
