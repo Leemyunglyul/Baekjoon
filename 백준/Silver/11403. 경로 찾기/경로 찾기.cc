@@ -1,13 +1,4 @@
 #include <iostream>
-#include <cmath>
-#include <queue>
-#include <vector>
-#include <tuple>
-#include <stack>
-#include <set>
-#include <algorithm>
-#include <string>
-#include <map>
 
 using namespace std;
 
