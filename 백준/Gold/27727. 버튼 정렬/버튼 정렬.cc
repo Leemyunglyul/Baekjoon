@@ -9,9 +9,8 @@ vector<pair<long long, long long>> arr;
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-    long long n, i, j, sum, k, x, a, b, c,p, lim;
+    long long n, i,sum, k, x, a, b, p, lim;
     cin>>n;
-    bool st=true;
     for(i=1, sum=0;i<=n;i++){
         cin>>x;
         arr.push_back({x, i});
