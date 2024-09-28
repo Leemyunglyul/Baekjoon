@@ -40,7 +40,7 @@ void init(int node, int start, int end) {
 void update_lazy(int node, int start, int end) {
     if (lazy[node] != 0) {
         if(lazy[node]%2==0){
-            if(tree[node][0]>0){
+            if(tree[node][0]<big){
                 tree[node][0]+=lazy[node];
                 tree[node][1]+=lazy[node];
             } 
@@ -60,7 +60,7 @@ void update_lazy(int node, int start, int end) {
                 tree[node][0]+=lazy[node];
                 tree[node][1]+=lazy[node];
             }
-            if(tree[node][2]==0){
+            if(tree[node][2]>=big){
                 tree[node][2]=big;
                 tree[node][3]=0;
             }
