@@ -13,7 +13,7 @@
 using namespace std;
 
 int arr[100100];
-int tree[400100][2];
+long long tree[400100][2];
 int check[1001000];
 
 long long init(int node, int st, int end){
@@ -35,7 +35,7 @@ void update(int n, int st, int end, int l, int r){
     tree[n][1]=tree[n*2+1][1] & tree[n*2][1]; 
 }
 
-int sum(int l, int r, int node, int st, int end){
+long long sum(int l, int r, int node, int st, int end){
     if(l<=st && end<=r) return tree[node][0];
     if(r<st || end<l) return 0;
     int m =(st+end)/2;
