@@ -13,28 +13,30 @@
 using namespace std;
 
 int arr[100100];
-int tree[100100];
+int tree[400100][2];
 int check[1001000];
 
 long long init(int node, int st, int end){
-    if(st==end) return tree[node]=arr[st];
+    if(st==end) return tree[node][0]=arr[st];
     int mid=(st+end)/2;
-    return tree[node]=init(node*2, st, mid)+init(node*2+1, mid+1, end);
+    return tree[node][0]=init(node*2, st, mid)+init(node*2+1, mid+1, end);
 }
 void update(int n, int st, int end, int l, int r){
-    if(r<st || l>end) return;
+    if(r<st || l>end || tree[n][1]==1) return;
     if(st==end){
-        tree[n]=check[tree[n]];
-       // cout<<st<<"->"<<tree[n]<<endl;
+        tree[n][0]=check[tree[n][0]];
+        if(tree[n][0]<=2) tree[n][1]=1;
         return;
     }
     int mid=(st+end)/2;
     update(n*2, st, mid, l, r);
     update(n*2+1, mid+1, end, l, r);
-    tree[n]=tree[n*2]+tree[n*2+1];
+    tree[n][0]=tree[n*2][0]+tree[n*2+1][0];
+    tree[n][1]=tree[n*2+1][1] & tree[n*2][1]; 
 }
+
 int sum(int l, int r, int node, int st, int end){
-    if(l<=st && end<=r) return tree[node];
+    if(l<=st && end<=r) return tree[node][0];
     if(r<st || end<l) return 0;
     int m =(st+end)/2;
     return sum(l, r, node*2, st, m)+sum(l, r, node*2+1, m+1, end);
