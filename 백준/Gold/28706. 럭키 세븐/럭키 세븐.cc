@@ -16,18 +16,10 @@ int main() {
             cin>>a>>x>>b>>y;
             for(i=0;i<=6;i++){
                 if(!((1<<i)&anw))continue;
-                if(a=='+'){
-                    tmp|=(1<<((i+x)%7));
-                }
-                else{
-                    tmp|=(1<<((i*x)%7));
-                }
-                if(b=='+'){
-                    tmp|=(1<<((i+y)%7));
-                }
-                else{
-                    tmp|=(1<<((i*y)%7));
-                }
+                if(a=='+') tmp|=(1<<((i+x)%7));
+                else tmp|=(1<<((i*x)%7));
+                if(b=='+') tmp|=(1<<((i+y)%7));
+                else tmp|=(1<<((i*y)%7));
             }
             anw=tmp;
             tmp=0;
