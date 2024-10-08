@@ -1,14 +1,4 @@
 #include <iostream>
-#include <cmath>
-#include <queue>
-#include <vector>
-#include <tuple>
-#include <stack>
-#include <set>
-#include <algorithm>
-#include <string>
-#include <map>
-#include <unordered_map>
 typedef long long ll;
 
 using namespace std;
@@ -41,22 +31,12 @@ int main() {
         cin>>x>>y;
         if(x==1) root=y;
         else{
-            if(y==root){
-                cout<<tot<<"\n";
-                continue;
-            }
-            if(check(4*y, 4*y+1) || 2*y==root){
-                //cout<<"left ";
+            if(y==root) cout<<tot<<"\n";
+            else if(check(4*y, 4*y+1) || 2*y==root)
                 cout<<tot-sub(4*y, 4*y+1)-2*y<<"\n";
-            }
-            else if(check((y*2+1)*2, (y*2+1)*2+1) || 2*y+1==root){
-                //cout<<"right ";
+            else if(check((y*2+1)*2, (y*2+1)*2+1) || 2*y+1==root)
                 cout<<tot-sub((y*2+1)*2, (y*2+1)*2+1)-(2*y+1)<<"\n";
-            }
-            else{
-                //cout<<"else ";
-                cout<<y+sub(2*y, 2*y+1)<<"\n";
-            }
+            else cout<<y+sub(2*y, 2*y+1)<<"\n";
         }
     }  
     
