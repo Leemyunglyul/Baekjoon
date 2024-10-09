@@ -24,7 +24,6 @@ bool check(){
         int from=get<0>(edge[i]);
         int to=get<1>(edge[i]);
         int len=get<2>(edge[i]);
-        if(arr[from]==big) continue;
         if(arr[to]>arr[from]+len){
             return false;
         }
@@ -62,7 +61,6 @@ int main() {
              int from=get<0>(edge[i]);
             int to=get<1>(edge[i]);
             int len=get<2>(edge[i]);
-            if(arr[from]==big) continue;
             arr[to]=min(arr[to], arr[from]+len);
         }
     }
@@ -73,7 +71,6 @@ int main() {
     ll m1=big;
     ll m2=0;
     for(i=1;i<=n;i++){
-        if(arr[i]==big) continue;
         m1=min(m1, arr[i]);
         m2=max(m2, arr[i]);
     }
