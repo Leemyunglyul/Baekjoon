@@ -1,46 +1,49 @@
 #include <iostream>
+#include <string>
+#include <cmath>
 #include <list>
 
 using namespace std;
 
-int main(){
 
-    int N;
-    string s;
- 
-    cin >> N;
 
-    list<char>::iterator it;
-    list<char> password;
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
-    
+    int testn;
 
-    for(int i = 0 ; i < N ; ++i){
-        
-        cin >> s;    
+    cin>>testn;
 
-        password.clear();
-        it = password.begin();    
-        
-        
-        for(int j = 0 ; j < s.length(); ++j){
-            if(s[j] =='<') {
-                if(it != password.begin()) it--;
+    while(testn--){
+        list<char> l;
+        auto it=l.begin();
+        string s;
+        cin>>s;
+        for(int i=0; i<s.size(); i++){
+            if(s[i]=='<'){
+                if(it!=l.begin()){
+                    it--;
+                }
             }
-            else if(s[j]=='>'){
-                if( it != password.end()) it++;
+            else if(s[i]=='>'){
+                if(it!=l.end()){
+                    it++;
+                }
             }
-            else if(s[j]=='-'){
-                if(it != password.begin()) it = password.erase(--it);
+            else if(s[i]=='-'){
+                if(it != l.begin()){
+                    it--;
+                    it =l.erase(it);
+                }
             }
             else{
-                it = password.insert(it,s[j]);
-                it++;
-            }   
+                l.insert(it, s[i]);
+            }
         }
-
-        for(char x : password) cout << x;
-        cout << endl;
+        for(char c : l){
+            cout<<c;
+        }
+        cout<<"\n";
     }
-    return 0;
+
 }
