@@ -17,8 +17,8 @@ int main() {
 		cin >> x >> y;
 		pq.push({ x, y });
 	}
-	while (pq.empty() == 0) {
-		if (p.empty() == 1) {
+	while (!pq.empty()) {
+		if (p.empty()) {
 			p.push(pq.top().second);
 		}
 		else {
