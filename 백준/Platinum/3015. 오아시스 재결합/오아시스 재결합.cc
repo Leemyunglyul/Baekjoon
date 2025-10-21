@@ -1,50 +1,58 @@
 #include <iostream>
-#include <string>
 #include <vector>
-#include <math.h>
+#include <numeric>
+#include <string>
+#include <algorithm>
+#include <cmath>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
-int stack[500001];
-int st=-1;
-int h[500001] = { 0 };
-int Plus[500001] = { 0 };
-int n;
-unsigned long long int number = 0;
+stack<pair<int, int>> st;
 
-void oasis(int x)
-{
-	stack[++st] = h[x];
-	Plus[st] = 0;
-	int i = st-1;
-	while (i>=0)
-	{
-		number++;
-		if (stack[i] < stack[st])
-		{
-			number += Plus[i];
-			Plus[i] = Plus[st];
-			stack[i--] = stack[st--];
-		}
-		else if (stack[i] == stack[st])
-		{
-			number+=Plus[i];
-			Plus[i] = Plus[i] + 1;
-			stack[i--] = stack[st--];
-		}
-		else if (stack[i] > stack[st])
-			return;
+int main(){
+	ios_base::sync_with_stdio(false); 
+	cin.tie(NULL); 
+	cout.tie(NULL);
+
+	int i, n, x, a, b, tmp;
+	long long anw = 0;
+	cin>>n;
+
+	for(i=1; i<=n; i++){
+		cin>>x;
+		bool flag = false;
+
+		while(!st.empty()){
+			a = st.top().first;
+			b = st.top().second;
+
+			if(a<x){
+				anw+=b;
+				st.pop();
+			} else if(a == x){
+				anw+=b;
+				st.pop();
+				if(!st.empty()){
+					anw++;
+				}
+				st.push({x, b+1});
+				flag = true;
+				break;
+			}
+			else{
+				anw++;
+				st.push({x, 1});
+				flag = true;
+				break;
+			}
+		}		
+		if(!flag) st.push({x, 1});
 	}
-}
 
-int main()
-{
-	int i;
-	cin >> n;
-	for (i = 0; i < n; i++)
-		cin >> h[i];
-	for (i = 0; i < n; i++)
-		oasis(i);
-	cout << number;
+	cout << anw;
+
+	return 0;
+
 }
