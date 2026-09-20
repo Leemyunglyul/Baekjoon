@@ -1,0 +1,15 @@
+# [D6] 공부의 길 - 8107 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWwXVPtKRYsDFATu) 
+
+### 성능 요약
+
+메모리: 6,976 KB, 시간: 13,581 ms, 코드길이: 2,253 Bytes
+
+### 제출 일자
+
+2026-09-20 17:26
+
+
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
