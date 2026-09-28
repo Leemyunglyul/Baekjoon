@@ -3,6 +3,8 @@
 #include <queue>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
+
 
 struct ap{
     int fid;
@@ -25,7 +27,7 @@ struct cmp5{
     }
 };
 
-std::map<int, ap> arr;
+std::unordered_map<int, ap> arr;
 int num = 1;
 
 std::priority_queue<ap, std::vector<ap>, cmp4> pq4;
@@ -78,29 +80,44 @@ void cancel(int fid)
 
 int clear_landing()
 {
+    while(!pq4.empty()){
+        ap x = pq4.top();
 
-    while(!pq4.empty() && (arr.find(pq4.top().fid) == arr.end() || 
-                !valid(pq4.top(), arr[pq4.top().fid] ))) pq4.pop();
+        auto it = arr.find(x.fid);
+
+        if(it != arr.end() && valid(x, it->second))
+            break;
+
+        pq4.pop();
+    }
 
     if(pq4.empty()) return -1;
-    
+
     ap x = pq4.top();
-    arr.erase(x.fid);
     pq4.pop();
+    arr.erase(x.fid);
 
     return x.fid;
 }
 
 int divert()
 {
-    while(!pq5.empty() && (arr.find(pq5.top().fid) == arr.end() || 
-                !valid(pq5.top(), arr[pq5.top().fid] ))) pq5.pop();
+    while(!pq5.empty()){
+        ap x = pq5.top();
+
+        auto it = arr.find(x.fid);
+
+        if(it != arr.end() && valid(x, it->second))
+            break;
+
+        pq5.pop();
+    }
 
     if(pq5.empty()) return -1;
-    
+
     ap x = pq5.top();
-    arr.erase(x.fid);
     pq5.pop();
+    arr.erase(x.fid);
 
     return x.fid;
 }
